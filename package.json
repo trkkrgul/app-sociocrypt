@@ -1,0 +1,32 @@
+{
+  "name": "app-sociocrypt",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.10",
+    "@reduxjs/toolkit": "^1.9.3",
+    "@web3modal/ethereum": "^2.1.1",
+    "@web3modal/react": "^2.1.1",
+    "antd": "^5.2.2",
+    "eslint": "8.34.0",
+    "eslint-config-next": "13.2.1",
+    "ethers": "^5",
+    "moment": "^2.29.4",
+    "next": "13.2.1",
+    "next-redux-wrapper": "^8.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-redux": "^8.0.5",
+    "redux-persist": "^6.0.0",
+    "wagmi": "^0.11.7"
+  }
+}
