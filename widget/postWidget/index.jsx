@@ -27,9 +27,17 @@ import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "@mui/material";
+import useTokenJSON from "@/hooks/useTokenJSON";
 
 const { Text, Link } = Typography;
 const PostWidget = ({ postProps }) => {
+  const { tokenJSON } = Boolean(postProps?.contract)
+    ? useTokenJSON({ tokenA: postProps?.contract })
+    : { tokenJSON: null };
+  const tokenPrice =
+    parseFloat(tokenJSON?.wBNBPrice) * parseFloat(tokenJSON?.priceInBNB);
+  const tokenLog = parseInt(Math.log10(tokenPrice) * -1 + 2);
+
   const isMobileDevice = useMediaQuery("(max-width: 1000px)");
   const dispatch = useDispatch();
   const walletAddress = useSelector((state) => state.auth.walletAddress);
@@ -176,24 +184,44 @@ const PostWidget = ({ postProps }) => {
             {Boolean(postProps.contract) && (
               <Row justify={"space-between"} style={{ margin: "1rem 0" }}>
                 <Space
-                  direction="horizontal"
+                  direction="vertical"
                   size="middle"
                   style={{
                     display: "flex",
                   }}
                   justify="left"
                 >
-                  <Descriptions bordered size="small">
+                  <Descriptions bordered size="small" layout="vertical">
+                    <Descriptions.Item label="Token">
+                      <Space>
+                        <Avatar
+                          shape="circle"
+                          src={`https://static.metaswap.codefi.network/api/v1/tokenIcons/56/${
+                            Boolean(tokenJSON?.TokenAddressInfo) &&
+                            tokenJSON?.TokenAddressInfo.toLowerCase()
+                          }.png `}
+                        />
+                        <Typography.Text strong ellipsis>
+                          {tokenJSON?.TokenNameInfo}
+                        </Typography.Text>
+                      </Space>
+                    </Descriptions.Item>
                     <Descriptions.Item label="Contract">
-                      <Avatar
-                        style={{ marginRight: "0.5rem" }}
-                        shape="circle"
-                        icon={<UserOutlined />}
-                      />
-                      <Typography.Text strong>
-                        {postProps.contract?.slice(0, 4) +
-                          ".." +
-                          postProps.contract?.slice(-4)}
+                      <Typography.Text strong copyable>
+                        {postProps.contract}
+                      </Typography.Text>
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Price">
+                      <Typography.Text strong ellipsis>
+                        {tokenJSON.priceInUSD?.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: Math.max(
+                            tokenLog > 0 && tokenLog < 15 ? tokenLog : 0,
+                            2
+                          ),
+                        })}
                       </Typography.Text>
                     </Descriptions.Item>
                   </Descriptions>

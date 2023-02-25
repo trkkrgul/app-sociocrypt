@@ -123,7 +123,7 @@ export default function Home() {
           ))} */}
           </Col>
 
-          {/* <Col
+          <Col
             span={6}
             style={{
               position: "sticky",
@@ -132,7 +132,7 @@ export default function Home() {
             }}
           >
             <RightTab />
-          </Col> */}
+          </Col>
         </Row>
       )}
     </>

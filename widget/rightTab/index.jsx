@@ -1,12 +1,14 @@
+import useTokenList from "@/hooks/useTokenList";
 import { Card, Space } from "antd";
 import React from "react";
+import TokenList from "./TokenList";
 import TopTokenWidget from "./TopTokenWidget";
 
 const RightTab = () => {
   return (
     <>
-      <Space style={{ display: "flex" }} direction="vertical">
-        <TopTokenWidget />
+      <Space direction="vertical" style={{ display: "flex" }}>
+        <TokenList />
       </Space>
     </>
   );
