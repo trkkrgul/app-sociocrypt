@@ -26,9 +26,11 @@ import {
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "@mui/material";
 
 const { Text, Link } = Typography;
 const PostWidget = ({ postProps }) => {
+  const isMobileDevice = useMediaQuery("(max-width: 1000px)");
   const dispatch = useDispatch();
   const walletAddress = useSelector((state) => state.auth.walletAddress);
   const token = useSelector((state) => state.auth.token);
@@ -149,7 +151,11 @@ const PostWidget = ({ postProps }) => {
 
                             display: "flex",
                             height:
-                              postProps.images.length > 1 ? "200px" : "100%",
+                              postProps.images.length > 1
+                                ? isMobileDevice
+                                  ? "100px"
+                                  : "200px"
+                                : "100%",
 
                             border: "1px solid #ffffff30",
                           }}

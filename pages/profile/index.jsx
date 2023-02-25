@@ -5,8 +5,9 @@ import RightTab from "@/widget/rightTab";
 import { Col, Row } from "antd";
 import React from "react";
 import UserWidget from "./UserWidget";
-
+import { useMediaQuery } from "@mui/material";
 const Profile = () => {
+  const isMobileDevice = useMediaQuery("(max-width: 1000px)");
   return (
     <>
       <Navbar />
@@ -33,20 +34,22 @@ const Profile = () => {
         >
           <LeftTabWidget activeKey={"2"} />
         </Col>
-        <Col span={12}>
+        <Col span={isMobileDevice ? 16 : 12}>
           <PostsWidget isProfile />
         </Col>
 
-        <Col
-          span={6}
-          style={{
-            position: "sticky",
-            top: "calc(  64px )",
-            height: "700px",
-          }}
-        >
-          <RightTab />
-        </Col>
+        {!isMobileDevice && (
+          <Col
+            span={6}
+            style={{
+              position: "sticky",
+              top: "calc(  64px )",
+              height: "700px",
+            }}
+          >
+            <RightTab />
+          </Col>
+        )}
       </Row>
     </>
   );

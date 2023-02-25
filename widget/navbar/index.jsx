@@ -16,9 +16,11 @@ import {
 import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "@mui/material";
 
 const Navbar = () => {
   const router = useRouter();
+  const isMobileDevice = useMediaQuery("(max-width: 1000px)");
   const dispatch = useDispatch();
   const walletAddress = useSelector((state) => state.auth.walletAddress);
   const userBalance = useSelector((state) => state.auth.userBalance);
@@ -84,44 +86,50 @@ const Navbar = () => {
             socio<span className="gradient-text">crypt</span>
           </Typography>
         </Col>
-        <Col>
-          <Space direction="horizontal" style={{ margin: "0rem 1rem" }}>
-            <Typography style={{ cursor: "pointer" }}>Posts</Typography>
-            <Divider type="vertical"></Divider>
-            <Typography style={{ cursor: "pointer" }}>Tokens</Typography>
-            <Divider type="vertical"></Divider>
-            <Typography style={{ cursor: "pointer" }}>
-              Today's Listings
-            </Typography>
-            <Divider type="vertical"></Divider>
-            <Search
-              placeholder="Search post, user, token"
-              onSearch={null}
-              allowClear
-            />
-          </Space>
-        </Col>
-        <Col>
-          <Space direction="horizontal" style={{ margin: "0rem 1rem" }}>
-            <Dropdown menu={menuProps}>
-              <Button>
-                <Space>
-                  {walletAddress?.slice(0, 4) + ".." + walletAddress?.slice(-4)}
-                  <DownOutlined />
-                </Space>
+        {!isMobileDevice && (
+          <Col>
+            <Space direction="horizontal" style={{ margin: "0rem 1rem" }}>
+              <Typography style={{ cursor: "pointer" }}>Posts</Typography>
+              <Divider type="vertical"></Divider>
+              <Typography style={{ cursor: "pointer" }}>Tokens</Typography>
+              <Divider type="vertical"></Divider>
+              <Typography style={{ cursor: "pointer" }}>
+                Today's Listings
+              </Typography>
+              <Divider type="vertical"></Divider>
+              <Search
+                placeholder="Search post, user, token"
+                onSearch={null}
+                allowClear
+              />
+            </Space>
+          </Col>
+        )}
+        {!isMobileDevice && (
+          <Col>
+            <Space direction="horizontal" style={{ margin: "0rem 1rem" }}>
+              <Dropdown menu={menuProps}>
+                <Button>
+                  <Space>
+                    {walletAddress?.slice(0, 4) +
+                      ".." +
+                      walletAddress?.slice(-4)}
+                    <DownOutlined />
+                  </Space>
+                </Button>
+              </Dropdown>
+              <Button
+                onClick={() => {
+                  dispatch(setWalletAddress(null));
+                  dispatch(setUserBalance(null));
+                  router.push("/login");
+                }}
+              >
+                Log Out
               </Button>
-            </Dropdown>
-            <Button
-              onClick={() => {
-                dispatch(setWalletAddress(null));
-                dispatch(setUserBalance(null));
-                router.push("/login");
-              }}
-            >
-              Log Out
-            </Button>
-          </Space>
-        </Col>
+            </Space>
+          </Col>
+        )}
       </Row>
       <Row
         style={{

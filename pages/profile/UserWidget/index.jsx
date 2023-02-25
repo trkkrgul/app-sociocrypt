@@ -55,18 +55,22 @@ const UserWidget = () => {
           direction="vertical"
           align="center"
           justify="center"
-          style={{ margin: "1rem" }}
+          style={{
+            display: "flex",
+            padding: "0 1rem",
+            justifyContent: "center",
+            textAlign: "center",
+          }}
         >
           <Image
             style={{
               borderRadius: "8px",
-
               overflow: "hidden !important",
               border: "6px solid #000",
             }}
             width={200}
             src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-          />{" "}
+          />
           <Space direction="vertical">
             <Typography.Text style={{ fontSize: "1.5rem" }} strong>
               @username
@@ -82,18 +86,14 @@ const UserWidget = () => {
             width: "100%",
             justifyContent: "space-between",
           }}
-          direction="horizontal"
+          direction="vertical"
         >
           <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: "more" }}>
-            Ant Design, a design language for background applications, is
-            refined by Ant UED Team. Ant Design, a design language for
-            background applications, is refined by Ant UED Team. Ant Design, a
-            design language for background applications, is refined by Ant UED
-            Team. Ant Design, a design language for background applications, is
-            refined by Ant UED Team. Ant Design, a design language for
-            background applications, is refined by Ant UED Team. Ant Design, a
-            design language for background applications, is refined by Ant UED
-            Team.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            consectetur, nunc vel tincidunt lacinia, nunc nisl aliquet nisl, nec
+            lacinia nunc nisl eget nunc. Donec auctor, nunc vel tincidunt
+            lacinia, nunc nisl aliquet nisl, nec lacinia nunc nisl eget nunc.
+            Donec auctor, nunc vel tincidunt
           </Paragraph>
 
           <Space direction="horizontal">
