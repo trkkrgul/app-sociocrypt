@@ -6,12 +6,16 @@ const initialState = {
   authUser: null,
   walletAddress: null,
   userBalance: null,
+  token: null,
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    setToken(state, action) {
+      state.token = action.payload;
+    },
     setUserBalance(state, action) {
       state.userBalance = action.payload;
     },
@@ -36,8 +40,13 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setAuthState, setAuthUser, setUserBalance, setWalletAddress } =
-  authSlice.actions;
+export const {
+  setAuthState,
+  setAuthUser,
+  setUserBalance,
+  setWalletAddress,
+  setToken,
+} = authSlice.actions;
 export const selectAuthState = (state) => state.auth.authState;
 export const selectAuthUser = (state) => state.auth.authUser;
 export default authSlice.reducer;

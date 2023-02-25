@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import clientPromise from "@/lib/mongodb";
 import { Provider } from "react-redux";
 import { wrapper } from "@/store/store";
 import {
@@ -69,4 +70,13 @@ export default function App({ Component, ...rest }) {
       </PersistGate>
     </Provider>
   );
+}
+
+export async function getServerSideProps(context) {
+  try {
+    await clientPromise;
+    return { props: { isConnected: true } };
+  } catch (e) {
+    return { props: { isConnected: false } };
+  }
 }

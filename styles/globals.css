@@ -27,3 +27,8 @@ body {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.ant-typography-copy,
+.ant-typography-expand {
+  color: #fff !important;
+}

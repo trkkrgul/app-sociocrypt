@@ -21,6 +21,7 @@ const Navbar = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const walletAddress = useSelector((state) => state.auth.walletAddress);
+  const userBalance = useSelector((state) => state.auth.userBalance);
   const { Search } = Input;
   const handleMenuClick = (e) => {
     message.info("Not ready yet!");
@@ -37,7 +38,7 @@ const Navbar = () => {
       icon: <UserOutlined />,
     },
     {
-      label: "Wallet",
+      label: Number(userBalance).toFixed(2),
       key: "3",
       icon: <UserOutlined />,
       disabled: true,
@@ -63,7 +64,7 @@ const Navbar = () => {
           borderBottom: "1px solid #111418",
           padding: "0rem 1rem",
           marginBottom: "calc( 1rem + 64px )",
-          backdropFilter: "blur(10px)",
+          background: "#000",
           position: "fixed",
           justifyContent: "space-between",
         }}
@@ -101,7 +102,6 @@ const Navbar = () => {
           </Space>
         </Col>
         <Col>
-          {" "}
           <Space direction="horizontal" style={{ margin: "0rem 1rem" }}>
             <Dropdown menu={menuProps}>
               <Button>

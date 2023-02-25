@@ -2,26 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
-  post: {
-    title: "Hello World",
-    body: "This is a post",
-    id: 1,
-    comments: [],
-    likes: 0,
-    dislikes: 0,
-    wallet: "0x0000000000",
-  },
-  feedPosts: [
-    {
-      title: "Hello World",
-      body: "This is a post",
-      id: 1,
-      comments: [],
-      likes: 0,
-      dislikes: 0,
-      wallet: "0x0000000000",
-    },
-  ],
+  post: {},
+  feedPosts: [],
 };
 
 export const postSlice = createSlice({
@@ -29,8 +11,8 @@ export const postSlice = createSlice({
   initialState,
   reducers: {
     // Action to add comment
-    addComment: (state, action) => {
-      state.value = [...state.value, action.payload];
+    setPosts: (state, action) => {
+      state.feedPosts = action.payload;
     },
 
     // Special reducer for hydrating the state
@@ -45,6 +27,6 @@ export const postSlice = createSlice({
   },
 });
 
-export const { addComment } = postSlice.actions;
+export const { setPosts } = postSlice.actions;
 export const selectComments = (state) => state.comments.value;
 export default postSlice.reducer;

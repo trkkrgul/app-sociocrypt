@@ -1,22 +1,24 @@
 import { Box, Typography } from "@mui/material";
 import { Web3Button } from "@web3modal/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useAccount, useBalance } from "wagmi";
+import { useAccount, useBalance, useSigner, useSignMessage } from "wagmi";
 import {
   setWalletAddress,
   setUserBalance,
   setAuthState,
+  setToken,
 } from "@/store/slices/authSlice";
 import { useRouter } from "next/router";
 import { Button, Card, Space, Steps } from "antd";
+import CryptoJS from "crypto-js";
 
 const Auth = () => {
+  const [isSignatured, setSignatured] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.auth.authState);
-  const walletAddress = useSelector((state) => state.auth.walletAddress);
-  const userBalance = useSelector((state) => state.auth.userBalance);
+
   const [steps, setSteps] = useState(0);
   const { address } = useAccount();
   const balance = useBalance({
@@ -26,6 +28,17 @@ const Auth = () => {
     onSuccess(data) {
       console.log(data);
       dispatch(setUserBalance(data.formatted));
+    },
+  });
+
+  const token = useSelector((state) => state.auth.token);
+  const { data, error, isLoading, signMessage } = useSignMessage({
+    onSuccess(data) {
+      console.log("root", data);
+      dispatch(setToken(data));
+      if (Boolean(token)) {
+        setSignatured(true);
+      }
     },
   });
 
@@ -65,14 +78,21 @@ const Auth = () => {
         {!Boolean(address) && <Web3Button />}{" "}
         {Boolean(address) && (
           <Button
-            onClick={() => {
+            onClick={async () => {
+              if (!isSignatured) {
+                signMessage({
+                  message: `Login sociocrypt.com with your address`,
+                });
+              }
               dispatch(setWalletAddress(address));
               dispatch(setUserBalance(balance?.data.formatted));
               dispatch(setAuthState(true));
-              router.push("/");
+              if (Boolean(token) && isSignatured) {
+                router.push("/");
+              }
             }}
           >
-            Login
+            {isSignatured ? "Login" : "Signature"}
           </Button>
         )}
       </Box>

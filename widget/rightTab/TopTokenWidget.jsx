@@ -10,16 +10,29 @@ const TopTokenWidget = () => {
       <Card>
         <Typography>Top Tokens</Typography>
         <Divider />
-        <Space
-          direction="horizontal"
-          size="middle"
-          style={{
-            display: "flex",
-          }}
-          justify="left"
-        >
-          <Avatar shape="square" icon={<UserOutlined />} />
-          <Typography>TokenName</Typography>
+        <Space direction="vertical">
+          <Space
+            direction="horizontal"
+            size="middle"
+            style={{
+              display: "flex",
+            }}
+            justify="left"
+          >
+            <Avatar shape="square" icon={<UserOutlined />} />
+            <Typography>TokenName</Typography>
+          </Space>
+          <Space
+            direction="horizontal"
+            size="middle"
+            style={{
+              display: "flex",
+            }}
+            justify="left"
+          >
+            <Avatar shape="square" icon={<UserOutlined />} />
+            <Typography>TokenName</Typography>
+          </Space>
         </Space>
       </Card>
     </>

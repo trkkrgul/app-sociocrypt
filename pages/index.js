@@ -40,6 +40,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import RightTab from "@/widget/rightTab";
+import LeftTabWidget from "@/widget/leftTabWidget";
 const { Header, Content, Sider } = Layout;
 export default function Home() {
   const [collapsed, setCollapsed] = useState(false);
@@ -55,7 +56,9 @@ export default function Home() {
   }
   const items = [
     getItem("Homepage", "1", <HomeFilled />),
-    getItem("Your Profile", "2", <UserOutlined />),
+    getItem("Your Profile", "2", <UserOutlined />, null, () =>
+      router.push("/profile")
+    ),
     getItem("Tokens", "sub1", <BlockOutlined />, [
       getItem("Explore", "3"),
       getItem("Hot Pairs", "4"),
@@ -76,6 +79,7 @@ export default function Home() {
   const walletAddress = useSelector((state) => state.auth.walletAddress);
   const router = useRouter();
   const { address } = useAccount();
+  const token = useSelector((state) => state.auth.token);
   if (!Boolean(walletAddress) || !Boolean(address)) {
     router.push("/login");
   }
@@ -88,46 +92,45 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-
-      <Row justify="center" style={{ gap: "1rem" }}>
-        <Col
+      {token && (
+        <Row
+          justify="center"
           style={{
-            position: "sticky",
-            top: "calc(  64px )",
-            height: "700px",
+            gap: "1rem",
+            width: "100%",
+            maxWidth: "1192px",
+            margin: "0 auto",
           }}
         >
-          <Sider
-            collapsible
-            collapsed={collapsed}
-            onCollapse={(value) => setCollapsed(value)}
+          <Col
+            span={"auto"}
+            style={{
+              position: "sticky",
+              top: "calc(64px)",
+              height: "700px",
+            }}
           >
-            <Menu
-              style={{ border: "1px solid #ffffff20", borderRadius: "6px" }}
-              defaultSelectedKeys={["1"]}
-              mode="inline"
-              items={items}
-              onClick={(item) => {
-                () => item.onClick;
-              }}
-            />
-          </Sider>
-        </Col>
-        <Col span={6}>
-          <PostsWidget isProfile={false} />
-        </Col>
+            <LeftTabWidget activeKey={"1"} />
+          </Col>
+          <Col span={12}>
+            <PostsWidget isProfile={false} />
+            {/* {props.posts.map((post) => (
+            <p>{post._id}</p>
+          ))} */}
+          </Col>
 
-        <Col
-          span={6}
-          style={{
-            position: "sticky",
-            top: "calc(  64px )",
-            height: "700px",
-          }}
-        >
-          <RightTab />
-        </Col>
-      </Row>
+          {/* <Col
+            span={6}
+            style={{
+              position: "sticky",
+              top: "calc(  64px )",
+              height: "700px",
+            }}
+          >
+            <RightTab />
+          </Col> */}
+        </Row>
+      )}
     </>
   );
 }

@@ -6,7 +6,7 @@ const RightTab = () => {
   return (
     <>
       <Space style={{ display: "flex" }} direction="vertical">
-        <TopTokenWidget /> <Card>asdalşasdklş</Card> <Card>asdalşasdklş</Card>
+        <TopTokenWidget />
       </Space>
     </>
   );
