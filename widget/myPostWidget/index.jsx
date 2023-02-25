@@ -43,7 +43,7 @@ const MyPostWidget = () => {
   const contractRef = useRef(null);
   const descriptionRef = useRef(null);
   const handleSend = async () => {
-    const { data } = await axios.post("http://localhost:3000/api/addPost", {
+    const { data } = await axios.post("/api/addPost", {
       wallet: walletAddress,
       tags: ["crypto"],
       token,
