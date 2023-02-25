@@ -145,6 +145,7 @@ const PostWidget = ({ postProps }) => {
                     (image) =>
                       Boolean(image) && (
                         <Image
+                          key={image}
                           wrapperStyle={{
                             overflow: "hidden",
                             width: postProps.images.length > 1 ? "50%" : "100%",
@@ -165,7 +166,6 @@ const PostWidget = ({ postProps }) => {
                             objectFit: "cover",
                             overflow: "hidden",
                           }}
-                          key={image}
                           src={image}
                         />
                       )
