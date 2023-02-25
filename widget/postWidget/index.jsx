@@ -138,7 +138,7 @@ const PostWidget = ({ postProps }) => {
               </Dropdown>
             </Row>
             <Typography
-              style={{ whiteSpace: "pre" }}
+              style={{ whiteSpace: "pre-wrap" }}
             >{`${postProps.description}`}</Typography>
             {Boolean(postProps.images.length > 0) && (
               <Row
