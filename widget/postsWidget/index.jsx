@@ -48,7 +48,7 @@ const PostsWidget = ({ isProfile }) => {
       {!isProfile && <MyPostWidget />}
       <Space direction="vertical" style={{ display: "flex" }}>
         <InfiniteScroll
-          dataLength={items.length} //This is important field to render the next data
+          dataLength={items.length} //Ths is important field to render the next data
           next={fetchMoreData}
           hasMore={hasMore}
           loader={
@@ -67,18 +67,18 @@ const PostsWidget = ({ isProfile }) => {
                 <PostWidget
                   key={i}
                   postProps={{
-                    _id: posts[i]._id,
-                    wallet: posts[i].wallet,
-                    images: posts[i].images,
-                    description: posts[i].escription,
-                    contract: posts[i].contract,
-                    likes: posts[i].likes,
-                    dislikes: posts[i].dislikes,
-                    categories: posts[i].categories,
-                    views: posts[i].views,
-                    createdAt: posts[i].createdAt,
-                    tags: posts[i].tags,
-                    description: posts[i].description,
+                    _id: posts[i]?._id,
+                    wallet: posts[i]?.wallet,
+                    images: posts[i]?.images,
+                    description: posts[i]?.escription,
+                    contract: posts[i]?.contract,
+                    likes: posts[i]?.likes,
+                    dislikes: posts[i]?.dislikes,
+                    categories: posts[i]?.categories,
+                    views: posts[i]?.views,
+                    createdAt: posts[i]?.createdAt,
+                    tags: posts[i]?.tags,
+                    description: posts[i]?.description,
                   }}
                 />
               )

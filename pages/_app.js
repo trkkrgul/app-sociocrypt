@@ -67,7 +67,9 @@ export default function App({ Component, ...rest }) {
           }}
         >
           <WagmiConfig client={wagmiClient}>
-            <Component {...pageProps} />
+            <div style={{ paddingBottom: "100px" }}>
+              <Component {...pageProps} />
+            </div>
             <MobileMenu />
           </WagmiConfig>
         </ConfigProvider>
