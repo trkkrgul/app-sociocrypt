@@ -123,9 +123,6 @@ const MyPostWidget = () => {
         direction="vertical"
         size="middle"
         style={{
-          position: isMobileDevice ? "relative" : "sticky",
-          top: isMobileDevice ? "inherit" : "calc( 64px )",
-          zIndex: 99,
           marginBottom: "1rem",
           display: "flex",
         }}

@@ -92,27 +92,13 @@ const PostWidget = ({ postProps }) => {
     {
       key: "1",
       label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
-          Save
-        </a>
+        <Typography.Text disabled> Save to your favourites</Typography.Text>
       ),
     },
     {
       key: "2",
       danger: true,
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.aliyun.com"
-        >
-          Report
-        </a>
-      ),
+      label: <Typography.Text disabled> Report</Typography.Text>,
     },
   ];
   const ownItems = [
