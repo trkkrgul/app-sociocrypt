@@ -7,52 +7,60 @@ import React from "react";
 import UserWidget from "@/widget/UserWidget";
 import { useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
+import UserPortfolio from "@/widget/leftTabWidget/userHoldings.jsx";
 const Profile = () => {
   const isMobileDevice = useMediaQuery("(max-width: 1000px)");
   const wallet = useSelector((state) => state.auth.walletAddress);
+  const token = useSelector((state) => state.auth.token);
+
   return (
     <>
       <Navbar />
-
-      <Row
-        justify="center"
-        style={{
-          gap: "1rem",
-          width: "100%",
-          maxWidth: "1192px",
-          margin: "0 auto",
-        }}
-      >
-        <Col span={24}>
-          <UserWidget wallet={wallet} />
-        </Col>
-        <Col
-          span={"auto"}
+      {token && !isMobileDevice && (
+        <Row
+          justify="center"
           style={{
-            position: "sticky",
-            top: "calc(  64px )",
-            height: "700px",
+            gap: "1rem",
+            width: "100%",
+            maxWidth: "1192px",
+            margin: "0 auto",
           }}
         >
-          <LeftTabWidget activeKey={"2"} />
-        </Col>
-        <Col span={isMobileDevice ? 16 : 12}>
-          <PostsWidget isProfile wallet={wallet} />
-        </Col>
-
-        {!isMobileDevice && (
+          <Col span={24}>
+            <UserWidget wallet={wallet} />
+          </Col>
           <Col
             span={6}
             style={{
               position: "sticky",
-              top: "calc(  64px )",
+              top: "calc(64px)",
               height: "700px",
             }}
           >
-            <RightTab />
+            <UserPortfolio />
+            {/* <LeftTabWidget activeKey={"1"} /> */}
           </Col>
-        )}
-      </Row>
+          <Col span={isMobileDevice ? 16 : 11}>
+            <PostsWidget isProfile wallet={wallet} />
+          </Col>
+
+          {!isMobileDevice && (
+            <Col
+              span={6}
+              style={{
+                position: "sticky",
+                top: "calc(  64px )",
+                height: "700px",
+              }}
+            >
+              <RightTab />
+            </Col>
+          )}
+        </Row>
+      )}
+      {isMobileDevice && (
+        <PostsWidget isProfile={false} wallet={walletAddress} />
+      )}
     </>
   );
 };

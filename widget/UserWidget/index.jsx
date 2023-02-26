@@ -26,7 +26,7 @@ const UserWidget = ({ wallet }) => {
         style={{
           display: "flex",
           margin: "0 auto",
-          marginBottom: "4rem",
+
           width: "100%",
           maxWidth: "calc(100% - 4rem)",
         }}
@@ -46,7 +46,8 @@ const UserWidget = ({ wallet }) => {
           }}
         >
           <Image
-            wrapperStyle={{ width: "100%" }}
+            wrapperStyle={{ width: "auto", height: "auto", objectFit: "fill" }}
+            style={{ width: "auto", height: "auto", objectFit: "fill" }}
             src="https://firebasestorage.googleapis.com/v0/b/socio-378818.appspot.com/o/img%2FScreen%20Shot%202023-02-26%20at%2009.12.07.png61264a55-378f-4551-9659-d49af882e1e3?alt=media&token=a84fdbab-f098-46ef-bfb3-2b2922a85c71"
           />
         </div>
