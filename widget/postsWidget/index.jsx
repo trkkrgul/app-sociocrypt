@@ -22,7 +22,7 @@ const PostsWidget = ({ isProfile }) => {
         dispatch(setPosts(data));
       };
       getPosts();
-    }, 10000);
+    }, 100000);
     return () => clearInterval(interval);
   }, []);
 
