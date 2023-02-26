@@ -13,7 +13,7 @@ export default async (req, res) => {
         .collection("posts")
         .find({})
         .sort({ createdAt: -1 })
-        .limit(20)
+        .limit(100)
         .toArray();
 
       res.json(posts);

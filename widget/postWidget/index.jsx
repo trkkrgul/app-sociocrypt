@@ -38,7 +38,6 @@ const PostWidget = ({ postProps }) => {
   const tokenPrice =
     parseFloat(tokenJSON?.wBNBPrice) * parseFloat(tokenJSON?.priceInBNB);
   const tokenLog = parseInt(Math.log10(tokenPrice) * -1 + 2);
-
   const isMobileDevice = useMediaQuery("(max-width: 1000px)");
   const dispatch = useDispatch();
   const walletAddress = useSelector((state) => state.auth.walletAddress);
@@ -106,6 +105,7 @@ const PostWidget = ({ postProps }) => {
           size="middle"
           style={{
             display: "flex",
+            marginBottom: "1rem",
           }}
           justify="center"
         >
