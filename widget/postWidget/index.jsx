@@ -125,14 +125,6 @@ const PostWidget = ({ postProps }) => {
                     ".." +
                     postProps.wallet?.slice(-4)}
                 </Typography>
-                <Divider type="vertical" />
-                <Typography.Text disabled>
-                  {postProps.categories[0]}
-                </Typography.Text>
-                <Divider type="vertical" />
-                <Typography.Text disabled>
-                  {moment(postProps.createdAt).fromNow()}
-                </Typography.Text>
               </Space>
               <Dropdown
                 menu={{
@@ -171,7 +163,7 @@ const PostWidget = ({ postProps }) => {
                             height:
                               postProps.images.length > 1
                                 ? isMobileDevice
-                                  ? "100px"
+                                  ? "150px"
                                   : "200px"
                                 : "100%",
 
@@ -249,6 +241,14 @@ const PostWidget = ({ postProps }) => {
               </Space>
               <Divider type="vertical" />
               <ShareAltOutlined />
+              <Divider type="vertical" />
+              <Typography.Text disabled>
+                {postProps.categories[0]}
+              </Typography.Text>
+              <Divider type="vertical" />
+              <Typography.Text disabled>
+                {moment(postProps.createdAt).fromNow()}
+              </Typography.Text>
             </Space>
           </Card>
         </Space>

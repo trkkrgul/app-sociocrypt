@@ -6,11 +6,10 @@ html {
 
 body {
   font-family: 'Space Grotesk';
-  height: 100%;
+
   background: #000;
   margin: 0;
   padding: 0;
-
   min-width: 0px;
 }
 
@@ -24,8 +23,13 @@ body {
   background: -o-linear-gradient(right, #ff564e, #fad126);
   background: linear-gradient(to right, #ff564e, #fad126);
   -webkit-background-clip: text;
+  -moz-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.gradient-text i:before {
+  display: inline;
 }
 
 .ant-typography-copy,

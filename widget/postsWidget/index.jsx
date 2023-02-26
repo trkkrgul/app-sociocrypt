@@ -12,17 +12,18 @@ const PostsWidget = ({ isProfile }) => {
   const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   useEffect(() => {
-    const interval = setInterval(() => {
-      const getPosts = async () => {
-        const { data } = await axios.post("/api/getPosts", {
-          wallet: walletAddress,
-          token,
-        });
+    const getPosts = async () => {
+      const { data } = await axios.post("/api/getPosts", {
+        wallet: walletAddress,
+        token,
+      });
 
-        dispatch(setPosts(data));
-      };
+      dispatch(setPosts(data));
+    };
+    const interval = setInterval(() => {
       getPosts();
     }, 100000);
+    getPosts();
     return () => clearInterval(interval);
   }, []);
 

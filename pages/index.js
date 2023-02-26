@@ -96,7 +96,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      {token && (
+      {token && !isMobileDevice && (
         <Row
           justify="center"
           style={{
@@ -135,6 +135,7 @@ export default function Home() {
           </Col>
         </Row>
       )}
+      {isMobileDevice && <PostsWidget isProfile={false} />}
     </>
   );
 }

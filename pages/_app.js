@@ -24,6 +24,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { ConfigProvider } from "antd";
 import { theme } from "antd";
+import MobileMenu from "@/widget/mobileMenu";
 
 const { provider } = configureChains(
   [bsc],
@@ -67,6 +68,7 @@ export default function App({ Component, ...rest }) {
         >
           <WagmiConfig client={wagmiClient}>
             <Component {...pageProps} />
+            <MobileMenu />
           </WagmiConfig>
         </ConfigProvider>
         <Web3Modal

@@ -14,10 +14,7 @@ const TokenList = () => {
       <Space direction="vertical" style={{ display: "flex" }}>
         <Typography.Text strong>Hot Tokens</Typography.Text>
 
-        <Space
-          direction="vertical"
-          style={{ display: "flex", height: "300px", overflowY: "scroll" }}
-        >
+        <Space direction="vertical" style={{ display: "flex" }}>
           {tokenList?.map((tokenA) => (
             <TokenListItem tokenA={tokenA} key={tokenA} />
           ))}

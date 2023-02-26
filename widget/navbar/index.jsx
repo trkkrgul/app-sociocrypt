@@ -25,14 +25,19 @@ const Navbar = () => {
   const walletAddress = useSelector((state) => state.auth.walletAddress);
   const userBalance = useSelector((state) => state.auth.userBalance);
   const { Search } = Input;
-  const handleMenuClick = (e) => {
-    message.info("Not ready yet!");
+  const handleLogout = () => {
+    dispatch(setWalletAddress(null));
+    dispatch(setUserBalance(null));
+    router.push("/login");
   };
   const items = [
     {
       label: "Your Profile",
       key: "1",
       icon: <UserOutlined />,
+      onClick: () => {
+        router.push("/profile");
+      },
     },
     {
       label: "Favourites",
@@ -51,10 +56,18 @@ const Navbar = () => {
       icon: <UserOutlined />,
       disabled: true,
     },
+    {
+      label: "Logout",
+      key: "5",
+      icon: <UserOutlined />,
+      danger: true,
+      onClick: () => {
+        handleLogout();
+      },
+    },
   ];
   const menuProps = {
     items,
-    onClick: handleMenuClick,
   };
   return (
     <>
@@ -105,31 +118,19 @@ const Navbar = () => {
             </Space>
           </Col>
         )}
-        {!isMobileDevice && (
-          <Col>
-            <Space direction="horizontal" style={{ margin: "0rem 1rem" }}>
-              <Dropdown menu={menuProps}>
-                <Button>
-                  <Space>
-                    {walletAddress?.slice(0, 4) +
-                      ".." +
-                      walletAddress?.slice(-4)}
-                    <DownOutlined />
-                  </Space>
-                </Button>
-              </Dropdown>
-              <Button
-                onClick={() => {
-                  dispatch(setWalletAddress(null));
-                  dispatch(setUserBalance(null));
-                  router.push("/login");
-                }}
-              >
-                Log Out
+
+        <Col>
+          <Space direction="horizontal" style={{ margin: "0rem 1rem" }}>
+            <Dropdown menu={menuProps}>
+              <Button>
+                <Space>
+                  {walletAddress?.slice(0, 4) + ".." + walletAddress?.slice(-4)}
+                  <DownOutlined />
+                </Space>
               </Button>
-            </Space>
-          </Col>
-        )}
+            </Dropdown>
+          </Space>
+        </Col>
       </Row>
       <Row
         style={{
