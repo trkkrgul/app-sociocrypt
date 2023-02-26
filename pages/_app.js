@@ -51,12 +51,18 @@ export default function App({ Component, ...rest }) {
       <PersistGate loading={null} persistor={persistStore(store)}>
         <ConfigProvider
           theme={{
+            algorithm: theme.darkAlgorithm,
+            components: {
+              Card: {
+                colorBgContainer:
+                  "radial-gradient( circle farthest-corner at 10% 20%,  rgba(15,10,10,1) 0%, rgba(20,20,20,1) 100.2% ),#000",
+              },
+            },
             token: {
               colorPrimary: "#ffab44",
-              colorBgBase: "#000000",
+              colorBgBase: "#000",
               fontFamily: "Space Grotesk",
             },
-            algorithm: theme.darkAlgorithm,
           }}
         >
           <WagmiConfig client={wagmiClient}>

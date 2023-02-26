@@ -9,6 +9,7 @@ import {
   ShareAltOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import moment from "moment";
 import {
   Space,
   Typography,
@@ -124,6 +125,14 @@ const PostWidget = ({ postProps }) => {
                     ".." +
                     postProps.wallet?.slice(-4)}
                 </Typography>
+                <Divider type="vertical" />
+                <Typography.Text disabled>
+                  {postProps.categories[0]}
+                </Typography.Text>
+                <Divider type="vertical" />
+                <Typography.Text disabled>
+                  {moment(postProps.createdAt).fromNow()}
+                </Typography.Text>
               </Space>
               <Dropdown
                 menu={{

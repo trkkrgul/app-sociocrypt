@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { setPosts } from "@/store/slices/postSlice";
 import { PlusOutlined } from "@ant-design/icons";
-import { Collapse, Modal, Upload } from "antd";
+import { Collapse, message, Modal, Select, Upload } from "antd";
 import { useRef, useState } from "react";
 import { Avatar, Button, Card, Dropdown, Row, Space, Typography } from "antd";
 import React from "react";
@@ -26,14 +26,16 @@ import {
 } from "firebase/storage";
 import { storage } from "@/lib/firebase";
 import { v4 } from "uuid";
-
+import { toChecksumAddress } from "ethereumjs-util";
+import { useMediaQuery } from "@mui/material";
 const MyPostWidget = () => {
+  const isMobileDevice = useMediaQuery("(max-width: 1000px)");
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.feedPosts);
   const token = useSelector((state) => state.auth.token);
-  const [description, setDescription] = useState(` `);
+  const [description, setDescription] = useState(``);
   const [contract, setContract] = useState("");
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(["General"]);
   const [tags, setTags] = useState([]);
   const walletAddress = useSelector((state) => state.auth.walletAddress);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -43,12 +45,20 @@ const MyPostWidget = () => {
   const contractRef = useRef(null);
   const descriptionRef = useRef(null);
   const handleSend = async () => {
+    if (contract !== "") {
+      try {
+        toChecksumAddress(contract);
+      } catch (e) {
+        message.warning("invalid contract");
+        return;
+      }
+    }
     const { data } = await axios.post("/api/addPost", {
       wallet: walletAddress,
-      tags: ["crypto"],
+      tags,
       token,
-      categories: ["crypto", "nft"],
-      contract: contract,
+      categories,
+      contract,
       images: fileList.map((file) => file?.originFileObj?.firebase),
       views: [],
       likes: [],
@@ -60,6 +70,8 @@ const MyPostWidget = () => {
     if (Boolean(data._id)) {
       setDescription(` `);
       setContract("");
+      setTags([]);
+      setCategories(["General"]);
       contractRef.current.value = null;
       descriptionRef.current.value = null;
       setFileList([]);
@@ -144,6 +156,7 @@ const MyPostWidget = () => {
           </Row>
           <TextArea
             ref={descriptionRef}
+            value={description}
             onChange={(e) => setDescription(e.target.value)}
             showCount
             maxLength={100}
@@ -152,7 +165,8 @@ const MyPostWidget = () => {
           />
           <Input
             ref={contractRef}
-            style={{ marginBottom: "1.5rem" }}
+            style={{ marginBottom: "1rem" }}
+            value={contract}
             onChange={(e) => setContract(e.target.value)}
             placeholder="Contract Address, e.g. 0x00000000"
             prefix={<FileTextOutlined className="site-form-item-icon" />}
@@ -162,6 +176,67 @@ const MyPostWidget = () => {
               </Tooltip>
             }
           />
+          <Space
+            style={{
+              marginBottom: "1rem",
+              display: "flex",
+
+              justifyContent: "space-between",
+            }}
+            direction={isMobileDevice ? "vertical" : "horizontal"}
+            align="space-between"
+          >
+            <Select
+              mode="tags"
+              style={{
+                width: "100%",
+                minWidth: "200px",
+              }}
+              placeholder="Add tags"
+              value={tags}
+              onChange={(e) => {
+                setTags(e);
+                console.log(e);
+              }}
+            />
+            <Select
+              defaultValue="general"
+              style={{
+                width: 120,
+              }}
+              value={categories[0]}
+              onChange={(e) => {
+                setCategories([e]);
+                console.log(categories);
+              }}
+              options={[
+                {
+                  value: "T. Analysis",
+                  label: "T. Analysis",
+                },
+                {
+                  value: "Airdrop",
+                  label: "Airdrop",
+                },
+                {
+                  value: "General",
+                  label: "General",
+                },
+                {
+                  value: "Shilling",
+                  label: "Shilling",
+                },
+                {
+                  value: "Listings",
+                  label: "Listings",
+                },
+                {
+                  value: "News",
+                  label: "News",
+                },
+              ]}
+            />
+          </Space>
           <Collapse collapsible="header" defaultActiveKey={["0"]} size="small">
             <Panel header="Image" key="1">
               <Upload

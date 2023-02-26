@@ -44,6 +44,7 @@ const PostsWidget = ({ isProfile }) => {
               views,
               tags,
               _id,
+              createdAt,
             },
             i
           ) => (
@@ -59,6 +60,7 @@ const PostsWidget = ({ isProfile }) => {
                 dislikes,
                 categories,
                 views,
+                createdAt,
                 tags,
               }}
             />
