@@ -10,7 +10,7 @@ export default async (req, res) => {
       images,
       description,
       contract,
-      likes,
+
       dislikes,
       categories,
       views,
@@ -26,13 +26,12 @@ export default async (req, res) => {
     if (signaturedWallet !== wallet) {
       res.status(403).json({ message: "Not authorized" });
     }
-
     const post = await db.collection("posts").insertOne({
       wallet,
       images,
       description,
       contract,
-      likes,
+      likes: [],
       dislikes,
       categories,
       views,
@@ -45,6 +44,6 @@ export default async (req, res) => {
     res.json(updatedPost);
   } catch (e) {
     console.error(e);
-    throw new Error(e).message;
+    res.status(500).json({ message: e.message });
   }
 };

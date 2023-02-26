@@ -5,12 +5,16 @@ const initialState = {
   post: {},
   feedPosts: [],
   tokenList: [],
+  likes: [],
 };
 
 export const postSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
+    setUserLikes: (state, action) => {
+      state.likes = action.payload;
+    },
     // Action to add comment
     setPosts: (state, action) => {
       state.feedPosts = action.payload;
@@ -30,6 +34,6 @@ export const postSlice = createSlice({
   },
 });
 
-export const { setPosts, setTokenList } = postSlice.actions;
+export const { setPosts, setUserLikes, setTokenList } = postSlice.actions;
 export const selectComments = (state) => state.comments.value;
 export default postSlice.reducer;

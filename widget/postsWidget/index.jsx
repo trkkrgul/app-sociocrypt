@@ -1,4 +1,4 @@
-import { setPosts } from "@/store/slices/postSlice";
+import { setPosts, setUserLikes } from "@/store/slices/postSlice";
 import { Space, Typography } from "antd";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -26,10 +26,17 @@ const PostsWidget = ({ isProfile, wallet }) => {
     // 20 more records in .5 secs
     setTimeout(() => {
       setItems((prev) => prev.concat(Array.from({ length: 5 })));
-    }, 1000);
+    }, 3000);
   };
 
   useEffect(() => {
+    const getUserLikes = async () => {
+      const { data } = await axios.post(`/api/getUserLikes`, {
+        wallet: walletAddress,
+        token,
+      });
+      dispatch(setUserLikes(data.existedLike));
+    };
     const getPosts = async () => {
       const { data } = await axios.post(
         `/api/getPosts${isProfile ? "?userWallet=" + wallet : ""}`,
@@ -38,13 +45,14 @@ const PostsWidget = ({ isProfile, wallet }) => {
           token,
         }
       );
-
       dispatch(setPosts(data));
     };
     const interval = setInterval(() => {
       getPosts();
+      getUserLikes();
     }, 100000);
     getPosts();
+    getUserLikes();
     return () => clearInterval(interval);
   }, []);
 
@@ -71,12 +79,12 @@ const PostsWidget = ({ isProfile, wallet }) => {
             (e, i) =>
               !(i >= posts.length) && (
                 <PostWidget
-                  key={i}
+                  key={e}
                   postProps={{
                     _id: posts[i]?._id,
                     wallet: posts[i]?.wallet,
                     images: posts[i]?.images,
-                    description: posts[i]?.escription,
+
                     contract: posts[i]?.contract,
                     likes: posts[i]?.likes,
                     dislikes: posts[i]?.dislikes,

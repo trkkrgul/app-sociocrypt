@@ -26,7 +26,6 @@ const Auth = () => {
     token: "0x7035d3b1cb1ced246e3bce35b1c7073a97530787",
     chainId: 56,
     onSuccess(data) {
-      console.log(data);
       dispatch(setUserBalance(data.formatted));
     },
   });
@@ -34,7 +33,6 @@ const Auth = () => {
   const token = useSelector((state) => state.auth.token);
   const { data, error, isLoading, signMessage } = useSignMessage({
     onSuccess(data) {
-      console.log("root", data);
       dispatch(setToken(data));
       if (Boolean(token)) {
         setSignatured(true);

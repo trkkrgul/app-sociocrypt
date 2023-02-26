@@ -97,7 +97,6 @@ const MyPostWidget = () => {
   };
   const handleCancel = () => setPreviewOpen(false);
   const handlePreview = async (file) => {
-    console.log(file);
     setPreviewImage(file.originFileObj.firebase);
     setPreviewOpen(true);
     setPreviewTitle(file.name);
@@ -209,7 +208,6 @@ const MyPostWidget = () => {
                 value={tags}
                 onChange={(e) => {
                   setTags(e);
-                  console.log(e);
                 }}
               />
               <Select
@@ -220,7 +218,6 @@ const MyPostWidget = () => {
                 value={categories[0]}
                 onChange={(e) => {
                   setCategories([e]);
-                  console.log(categories);
                 }}
                 options={[
                   {
