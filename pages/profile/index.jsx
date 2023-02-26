@@ -6,8 +6,10 @@ import { Col, Row } from "antd";
 import React from "react";
 import UserWidget from "@/widget/UserWidget";
 import { useMediaQuery } from "@mui/material";
+import { useSelector } from "react-redux";
 const Profile = () => {
   const isMobileDevice = useMediaQuery("(max-width: 1000px)");
+  const wallet = useSelector((state) => state.auth.walletAddress);
   return (
     <>
       <Navbar />
@@ -22,7 +24,7 @@ const Profile = () => {
         }}
       >
         <Col span={24}>
-          <UserWidget />
+          <UserWidget wallet={wallet} />
         </Col>
         <Col
           span={"auto"}
@@ -35,7 +37,7 @@ const Profile = () => {
           <LeftTabWidget activeKey={"2"} />
         </Col>
         <Col span={isMobileDevice ? 16 : 12}>
-          <PostsWidget isProfile />
+          <PostsWidget isProfile wallet={wallet} />
         </Col>
 
         {!isMobileDevice && (

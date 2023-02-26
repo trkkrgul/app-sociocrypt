@@ -29,9 +29,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "@mui/material";
 import useTokenJSON from "@/hooks/useTokenJSON";
+import { useRouter } from "next/router";
 
 const { Text, Link } = Typography;
 const PostWidget = ({ postProps }) => {
+  const router = useRouter();
   const { tokenJSON } = useTokenJSON({ tokenA: postProps.contract });
 
   const tokenPrice =
@@ -111,6 +113,7 @@ const PostWidget = ({ postProps }) => {
           <Card size="small">
             <Row justify={"space-between"} style={{ marginBottom: "1rem" }}>
               <Space
+                onClick={() => router.push(`/profile/${postProps.wallet}`)}
                 direction="horizontal"
                 size="middle"
                 style={{

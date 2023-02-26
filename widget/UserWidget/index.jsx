@@ -19,14 +19,7 @@ import {
 } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
-const UserWidget = () => {
-  const { Paragraph } = Typography;
-
-  const walletAddress = useSelector((state) => state.auth.walletAddress);
-  const { useToken } = theme;
-  const { token } = useToken();
-  const article =
-    "MetaSoccer is the first soccer metaverse where you can manage your own club and generate income while you play. Youth Scouts are a fundamental pillar of the game: the introduction of new players to the MetaSoccer universe depends on them (known as Scouting).";
+const UserWidget = ({ wallet }) => {
   return (
     <>
       <Space
@@ -81,11 +74,11 @@ const UserWidget = () => {
             direction="horizontal"
             style={{ display: "flex" }}
             onClick={() => {
-              window.navigator.clipboard.writeText(walletAddress);
+              window.navigator.clipboard.writeText(wallet);
             }}
           >
             <Typography.Text style={{ fontSize: "1.5rem" }} strong>
-              {walletAddress?.slice(0, 4) + "..." + walletAddress?.slice(-4)}
+              {wallet?.slice(0, 4) + "..." + wallet?.slice(-4)}
             </Typography.Text>
             <CopyAllRounded sx={{ color: "#fff", cursor: "pointer" }} />
           </Space>

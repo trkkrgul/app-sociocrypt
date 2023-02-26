@@ -9,7 +9,7 @@ import MyPostWidget from "../myPostWidget";
 import Navbar from "../navbar";
 import PostWidget from "../postWidget";
 
-const PostsWidget = ({ isProfile }) => {
+const PostsWidget = ({ isProfile, wallet }) => {
   const router = useRouter();
 
   const walletAddress = useSelector((state) => state.auth.walletAddress);
@@ -32,9 +32,7 @@ const PostsWidget = ({ isProfile }) => {
   useEffect(() => {
     const getPosts = async () => {
       const { data } = await axios.post(
-        `/api/getPosts${
-          isProfile ? "?userWallet=" + router.pathname.split("/")[1] : ""
-        }`,
+        `/api/getPosts${isProfile ? "?userWallet=" + wallet : ""}`,
         {
           wallet: walletAddress,
           token,

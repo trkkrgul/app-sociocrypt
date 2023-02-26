@@ -50,9 +50,7 @@ const UserPortfolio = () => {
           </Descriptions.Item>
           <Descriptions.Item label="User Balance">
             <Typography.Text strong ellipsis>
-              {tokenJSON.priceInUSD?.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
+              {tokenJSON.userBalance?.toLocaleString("en-US", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}{" "}
