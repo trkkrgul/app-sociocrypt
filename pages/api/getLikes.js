@@ -4,8 +4,6 @@ import { ObjectId } from "mongodb";
 export default async (req, res) => {
   const { token, postId } = req.body;
 
-  console.log("body", req.body);
-
   try {
     const client = await clientPromise;
     const db = client.db("likes");

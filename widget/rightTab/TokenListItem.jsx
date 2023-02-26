@@ -15,6 +15,7 @@ import {
 import { Box } from "@mui/material";
 import Link from "next/link";
 import { Telegram, Twitter } from "@mui/icons-material";
+import { toChecksumAddress } from "ethereumjs-util";
 
 const TokenListItem = ({ tokenA }) => {
   const [open, setOpen] = useState(false);
@@ -45,13 +46,22 @@ const TokenListItem = ({ tokenA }) => {
             <Descriptions bordered size="small" layout="vertical" column={1}>
               <Descriptions.Item label="Token">
                 <Space>
-                  <Avatar
-                    shape="circle"
-                    src={`https://static.metaswap.codefi.network/api/v1/tokenIcons/56/${
-                      Boolean(tokenJSON?.TokenAddressInfo) &&
-                      tokenJSON?.TokenAddressInfo.toLowerCase()
-                    }.png `}
-                  />
+                  {tokenJSON?.TokenAddressInfo && (
+                    <Avatar
+                      shape="circle"
+                      src={
+                        toChecksumAddress(tokenJSON?.TokenAddressInfo) ===
+                        toChecksumAddress(
+                          "0x78f7b3bc33497375fc9b42b8f6bd62670dc979b3"
+                        )
+                          ? "https://firebasestorage.googleapis.com/v0/b/socio-378818.appspot.com/o/img%2F0x78f7b3bc33497375fc9b42b8f6bd62670dc979b3.png45aa1eb2-5fcc-47ff-9afc-29c06197d5fc?alt=media&token=4c8d7e72-19e4-4fb5-8a63-7e4ec590254f"
+                          : `https://static.metaswap.codefi.network/api/v1/tokenIcons/56/${
+                              Boolean(tokenJSON?.TokenAddressInfo) &&
+                              tokenJSON?.TokenAddressInfo.toLowerCase()
+                            }.png `
+                      }
+                    />
+                  )}
                   <Typography.Text strong>
                     {tokenJSON?.TokenSymbolInfo}
                   </Typography.Text>
@@ -126,13 +136,22 @@ const TokenListItem = ({ tokenA }) => {
                 "&:hover": { backgroundColor: "#ffffff40" },
               }}
             >
-              <Avatar
-                shape="square"
-                src={`https://static.metaswap.codefi.network/api/v1/tokenIcons/56/${
-                  Boolean(tokenJSON?.TokenAddressInfo) &&
-                  tokenJSON?.TokenAddressInfo.toLowerCase()
-                }.png `}
-              />
+              {tokenJSON.TokenAddressInfo && (
+                <Avatar
+                  shape="circle"
+                  src={
+                    toChecksumAddress(tokenJSON?.TokenAddressInfo) ===
+                    toChecksumAddress(
+                      "0x78f7b3bc33497375fc9b42b8f6bd62670dc979b3"
+                    )
+                      ? "https://firebasestorage.googleapis.com/v0/b/socio-378818.appspot.com/o/img%2F0x78f7b3bc33497375fc9b42b8f6bd62670dc979b3.png45aa1eb2-5fcc-47ff-9afc-29c06197d5fc?alt=media&token=4c8d7e72-19e4-4fb5-8a63-7e4ec590254f"
+                      : `https://static.metaswap.codefi.network/api/v1/tokenIcons/56/${
+                          Boolean(tokenJSON?.TokenAddressInfo) &&
+                          tokenJSON?.TokenAddressInfo.toLowerCase()
+                        }.png `
+                  }
+                />
+              )}
               <Typography style={{ fontWeight: "700" }}>
                 {tokenJSON.TokenSymbolInfo}
               </Typography>

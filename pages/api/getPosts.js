@@ -3,7 +3,7 @@ import clientPromise from "@/lib/mongodb";
 export default async (req, res) => {
   const { token, wallet } = req.body;
   const userWallet = req.query.userWallet;
-  console.log(userWallet);
+
   try {
     if (!Boolean(token) || !Boolean(wallet)) {
       res.status(400).json({ message: "Bad Request" });

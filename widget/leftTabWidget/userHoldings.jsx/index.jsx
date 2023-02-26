@@ -1,6 +1,7 @@
 import useTokenJSON from "@/hooks/useTokenJSON";
 import { Description } from "@mui/icons-material";
 import { Avatar, Card, Descriptions, Divider, Space, Typography } from "antd";
+import Link from "next/link";
 import React from "react";
 
 const UserPortfolio = () => {
@@ -11,20 +12,19 @@ const UserPortfolio = () => {
     parseFloat(tokenJSON?.wBNBPrice) * parseFloat(tokenJSON?.priceInBNB);
   const tokenLog = parseInt(Math.log10(tokenPrice) * -1 + 2);
   return (
-    Boolean(tokenJSON?.priceInUSD) && (
+    Boolean(tokenJSON?.TokenAddressInfo) && (
       <Card bodyStyle={{ margin: "0", padding: "0" }}>
         <Descriptions bordered size="small" layout="vertical" column={1}>
           <Descriptions.Item label="Token">
             <Space>
               <Avatar
                 shape="circle"
+                src="https://firebasestorage.googleapis.com/v0/b/socio-378818.appspot.com/o/img%2Fsocio.pngda7debde-c60b-41c3-9376-1558e0454dd5?alt=media&token=a69f9a52-4776-49ee-a8bc-47beeb7b301c"
                 style={{
                   border: "1px solid #ff564e",
                   backgroundColor: "#000",
                 }}
-              >
-                <Typography.Text className="gradient-text">SC</Typography.Text>
-              </Avatar>
+              ></Avatar>
               <Typography.Text strong ellipsis className="gradient-text">
                 {tokenJSON?.TokenNameInfo}
               </Typography.Text>
@@ -34,6 +34,24 @@ const UserPortfolio = () => {
             <Typography.Text strong copyable>
               {tokenJSON.TokenAddressInfo}
             </Typography.Text>
+          </Descriptions.Item>
+          <Descriptions.Item label="Charts">
+            <Space>
+              <Link
+                target={"_blank"}
+                href={`https://poocoin.app/tokens/${tokenJSON.TokenAddressInfo}`}
+              >
+                <Typography.Text strong> Poocoin </Typography.Text>
+              </Link>
+              <Divider type="vertical" />
+              <Link
+                target={"_blank"}
+                rel="noreferrer"
+                href={`https://dextools.io/app/en/bnb/pair-explorer/${tokenJSON.TokenAddressInfo}`}
+              >
+                <Typography.Text strong>DexTools</Typography.Text>
+              </Link>
+            </Space>
           </Descriptions.Item>
           <Descriptions.Item label="Price">
             <Typography.Text strong ellipsis>

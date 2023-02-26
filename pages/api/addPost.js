@@ -21,7 +21,6 @@ export default async (req, res) => {
       "Login sociocrypt.com with your address",
       token
     );
-    console.log(signaturedWallet);
 
     if (signaturedWallet !== wallet) {
       res.status(403).json({ message: "Not authorized" });

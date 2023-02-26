@@ -141,7 +141,7 @@ const PostWidget = ({ postProps }) => {
       setLikes(data.existedLike.length);
     };
     getLikes();
-  }, [postProps]);
+  }, []);
   return (
     <>
       {postProps && (
@@ -162,6 +162,7 @@ const PostWidget = ({ postProps }) => {
                   direction="horizontal"
                   size="middle"
                   style={{
+                    cursor: "pointer",
                     display: "flex",
                   }}
                   justify="left"
@@ -297,11 +298,6 @@ const PostWidget = ({ postProps }) => {
                     <HeartOutlined onClick={() => handleLike("like")} />
                   )}
                   <Text>{likes}</Text>
-                </Space>
-                <Divider type="vertical" />
-                <Space>
-                  <DislikeOutlined />
-                  <Text>{postProps.dislikes.length}</Text>
                 </Space>
                 <Divider type="vertical" />
                 <ShareAltOutlined />

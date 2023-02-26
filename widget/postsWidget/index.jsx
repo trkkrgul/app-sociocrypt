@@ -50,7 +50,7 @@ const PostsWidget = ({ isProfile, wallet }) => {
     const interval = setInterval(() => {
       getPosts();
       getUserLikes();
-    }, 100000);
+    }, 20000);
     getPosts();
     getUserLikes();
     return () => clearInterval(interval);

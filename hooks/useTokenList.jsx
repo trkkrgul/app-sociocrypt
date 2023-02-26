@@ -2,6 +2,7 @@ import React from "react";
 
 const useTokenList = () => {
   const tokenList = [
+    "0x86cd1faf05abbb705842ec3c98ef5006173fb4d6",
     "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
     "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
     "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
@@ -9,6 +10,7 @@ const useTokenList = () => {
     "0x1d2f0da169ceb9fc7b3144628db156f3f6c60dbe",
     "0xe9e7cea3dedca5984780bafc599bd69add087d56",
     "0x3ee2200efb3400fabb9aacf31297cbdd1d435d47",
+    "0x78f7b3bc33497375fc9b42b8f6bd62670dc979b3",
     "0xba2ae424d960c26247dd6c32edc70b295c744c43",
     "0xcc42724c6683b7e57334c4e856f4c9965ed682bd",
     "0x7083609fce4d1d8dc0c979aab8c869ea2c873402",

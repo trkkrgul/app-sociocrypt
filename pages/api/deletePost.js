@@ -21,13 +21,11 @@ export default async (req, res) => {
         res.status(403).json({ message: "Not authorized" });
       }
       const id = new ObjectId(_id);
-      console.log(id);
 
       await db
         .collection("posts")
         .deleteOne({ _id: id })
         .then((result) => {
-          console.log(result);
           res.json(result);
         });
     }
