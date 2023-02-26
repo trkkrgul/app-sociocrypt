@@ -119,8 +119,16 @@ const PostWidget = ({ postProps }) => {
                 }}
                 justify="left"
               >
-                <Avatar shape="square" icon={<UserOutlined />} />
-                <Typography>
+                <Avatar
+                  shape="square"
+                  size={40}
+                  style={{
+                    border: "1px solid #ff564e",
+                    backgroundColor: "#000",
+                  }}
+                  icon={<UserOutlined style={{ color: "#ff564e" }} />}
+                />
+                <Typography className="gradient-text">
                   {postProps.wallet?.slice(0, 4) +
                     ".." +
                     postProps.wallet?.slice(-4)}
