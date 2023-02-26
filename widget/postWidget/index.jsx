@@ -32,9 +32,8 @@ import useTokenJSON from "@/hooks/useTokenJSON";
 
 const { Text, Link } = Typography;
 const PostWidget = ({ postProps }) => {
-  const { tokenJSON } = Boolean(postProps?.contract)
-    ? useTokenJSON({ tokenA: postProps?.contract })
-    : { tokenJSON: null };
+  const { tokenJSON } = useTokenJSON({ tokenA: postProps.contract });
+
   const tokenPrice =
     parseFloat(tokenJSON?.wBNBPrice) * parseFloat(tokenJSON?.priceInBNB);
   const tokenLog = parseInt(Math.log10(tokenPrice) * -1 + 2);
@@ -222,7 +221,7 @@ const PostWidget = ({ postProps }) => {
                     </Descriptions.Item>
                     <Descriptions.Item label="Price">
                       <Typography.Text strong ellipsis>
-                        {tokenJSON.priceInUSD?.toLocaleString("en-US", {
+                        {tokenJSON?.priceInUSD?.toLocaleString("en-US", {
                           style: "currency",
                           currency: "USD",
                           minimumFractionDigits: 2,

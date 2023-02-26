@@ -1,5 +1,5 @@
 import { setUserBalance, setWalletAddress } from "@/store/slices/authSlice";
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import { DownOutlined, HeartFilled, UserOutlined } from "@ant-design/icons";
 import { Web3Button } from "@web3modal/react";
 import {
   Space,
@@ -40,25 +40,21 @@ const Navbar = () => {
       },
     },
     {
-      label: "Favourites",
+      label: "Favorites",
       key: "2",
-      icon: <UserOutlined />,
+      icon: <HeartFilled />,
+      disabled: true,
     },
+
     {
-      label: Number(userBalance).toFixed(2),
+      label: "Settings",
       key: "3",
       icon: <UserOutlined />,
       disabled: true,
     },
     {
-      label: "Settings",
-      key: "4",
-      icon: <UserOutlined />,
-      disabled: true,
-    },
-    {
       label: "Logout",
-      key: "5",
+      key: "4",
       icon: <UserOutlined />,
       danger: true,
       onClick: () => {

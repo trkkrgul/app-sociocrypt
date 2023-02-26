@@ -4,7 +4,7 @@ import PostsWidget from "@/widget/postsWidget";
 import RightTab from "@/widget/rightTab";
 import { Col, Row } from "antd";
 import React from "react";
-import UserWidget from "./UserWidget";
+import UserWidget from "@/widget/UserWidget";
 import { useMediaQuery } from "@mui/material";
 const Profile = () => {
   const isMobileDevice = useMediaQuery("(max-width: 1000px)");

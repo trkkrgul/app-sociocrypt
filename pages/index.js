@@ -42,6 +42,7 @@ import {
 import RightTab from "@/widget/rightTab";
 import LeftTabWidget from "@/widget/leftTabWidget";
 import { useMediaQuery } from "@mui/material";
+import UserPortfolio from "@/widget/leftTabWidget/userHoldings.jsx";
 
 const { Header, Content, Sider } = Layout;
 
@@ -107,16 +108,17 @@ export default function Home() {
           }}
         >
           <Col
-            span={"auto"}
+            span={6}
             style={{
               position: "sticky",
               top: "calc(64px)",
               height: "700px",
             }}
           >
-            <LeftTabWidget activeKey={"1"} />
+            <UserPortfolio />
+            {/* <LeftTabWidget activeKey={"1"} /> */}
           </Col>
-          <Col span={isMobileDevice ? 16 : 12}>
+          <Col span={isMobileDevice ? 16 : 11}>
             <PostsWidget isProfile={false} />
             {/* {props.posts.map((post) => (
             <p>{post._id}</p>

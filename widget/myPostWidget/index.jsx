@@ -68,7 +68,7 @@ const MyPostWidget = () => {
     });
 
     if (Boolean(data._id)) {
-      setDescription(` `);
+      setDescription(``);
       setContract("");
       setTags([]);
       setCategories(["General"]);

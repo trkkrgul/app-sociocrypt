@@ -1,6 +1,7 @@
 import { setPosts } from "@/store/slices/postSlice";
 import { Space, Typography } from "antd";
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +10,8 @@ import Navbar from "../navbar";
 import PostWidget from "../postWidget";
 
 const PostsWidget = ({ isProfile }) => {
+  const router = useRouter();
+
   const walletAddress = useSelector((state) => state.auth.walletAddress);
   const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
@@ -28,10 +31,15 @@ const PostsWidget = ({ isProfile }) => {
 
   useEffect(() => {
     const getPosts = async () => {
-      const { data } = await axios.post("/api/getPosts", {
-        wallet: walletAddress,
-        token,
-      });
+      const { data } = await axios.post(
+        `/api/getPosts${
+          isProfile ? "?userWallet=" + router.pathname.split("/")[1] : ""
+        }`,
+        {
+          wallet: walletAddress,
+          token,
+        }
+      );
 
       dispatch(setPosts(data));
     };
@@ -63,7 +71,7 @@ const PostsWidget = ({ isProfile }) => {
         >
           {items.map(
             (e, i) =>
-              i < posts.length && (
+              !(i >= posts.length) && (
                 <PostWidget
                   key={i}
                   postProps={{
