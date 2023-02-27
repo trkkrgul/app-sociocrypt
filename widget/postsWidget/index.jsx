@@ -1,4 +1,5 @@
-import { setPosts, setUserLikes } from "@/store/slices/postSlice";
+import { setPosts } from "@/store/slices/postSlice";
+import { Web3Button } from "@web3modal/react";
 import { Space, Typography } from "antd";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -10,10 +11,6 @@ import Navbar from "../navbar";
 import PostWidget from "../postWidget";
 
 const PostsWidget = ({ isProfile, wallet }) => {
-  const router = useRouter();
-
-  const walletAddress = useSelector((state) => state.auth.walletAddress);
-  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const [hasMore, setHasMore] = useState(true);
   const [items, setItems] = useState(Array.from({ length: 10 }));
@@ -30,30 +27,13 @@ const PostsWidget = ({ isProfile, wallet }) => {
   };
 
   useEffect(() => {
-    const getUserLikes = async () => {
-      const { data } = await axios.post(`/api/getUserLikes`, {
-        wallet: walletAddress,
-        token,
-      });
-      dispatch(setUserLikes(data.existedLike));
-    };
     const getPosts = async () => {
       const { data } = await axios.post(
-        `/api/getPosts${isProfile ? "?userWallet=" + wallet : ""}`,
-        {
-          wallet: walletAddress,
-          token,
-        }
+        `/api/getPosts${isProfile ? "?userWallet=" + wallet : ""}`
       );
       dispatch(setPosts(data));
     };
-    const interval = setInterval(() => {
-      getPosts();
-      getUserLikes();
-    }, 20000);
     getPosts();
-    getUserLikes();
-    return () => clearInterval(interval);
   }, []);
 
   const posts = useSelector((state) => state.posts.feedPosts);
@@ -79,20 +59,9 @@ const PostsWidget = ({ isProfile, wallet }) => {
             (e, i) =>
               !(i >= posts.length) && (
                 <PostWidget
-                  key={e}
+                  key={i}
                   postProps={{
-                    _id: posts[i]?._id,
-                    wallet: posts[i]?.wallet,
-                    images: posts[i]?.images,
-
-                    contract: posts[i]?.contract,
-                    likes: posts[i]?.likes,
-                    dislikes: posts[i]?.dislikes,
-                    categories: posts[i]?.categories,
-                    views: posts[i]?.views,
-                    createdAt: posts[i]?.createdAt,
-                    tags: posts[i]?.tags,
-                    description: posts[i]?.description,
+                    ...posts[i],
                   }}
                 />
               )

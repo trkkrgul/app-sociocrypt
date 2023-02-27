@@ -1,93 +1,14 @@
 import Head from "next/head";
 import React from "react";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
-import { Web3Button } from "@web3modal/react";
-import { useAccount, useBalance } from "wagmi";
-import { setUserBalance, setWalletAddress } from "@/store/slices/authSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import {
-  Button,
-  Col,
-  Row,
-  Steps,
-  Typography,
-  Layout,
-  Menu,
-  theme,
-  Badge,
-} from "antd";
-import { useRouter } from "next/router";
+import { Col, Row } from "antd";
 import Navbar from "@/widget/navbar";
 import PostsWidget from "@/widget/postsWidget";
-import {
-  BlockOutlined,
-  BuildOutlined,
-  CheckSquareOutlined,
-  DesktopOutlined,
-  DoubleLeftOutlined,
-  DoubleRightOutlined,
-  EnvironmentOutlined,
-  FileOutlined,
-  HomeFilled,
-  LaptopOutlined,
-  NodeCollapseOutlined,
-  NotificationOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 import RightTab from "@/widget/rightTab";
-import LeftTabWidget from "@/widget/leftTabWidget";
 import { useMediaQuery } from "@mui/material";
 import UserPortfolio from "@/widget/leftTabWidget/userHoldings.jsx";
-
-const { Header, Content, Sider } = Layout;
-
 export default function Home() {
   const isMobileDevice = useMediaQuery("(max-width: 1000px)");
-  const [collapsed, setCollapsed] = useState(false);
 
-  function getItem(label, key, icon, children, onClick) {
-    return {
-      key,
-      icon,
-      children,
-      label,
-      onClick,
-    };
-  }
-  const items = [
-    getItem("Homepage", "1", <HomeFilled />),
-    getItem("Your Profile", "2", <UserOutlined />, null, () =>
-      router.push("/profile")
-    ),
-    getItem("Tokens", "sub1", <BlockOutlined />, [
-      getItem("Explore", "3"),
-      getItem("Hot Pairs", "4"),
-      getItem("Recently Launched", "5"),
-    ]),
-    getItem("Ecosystem", "sub2", <BuildOutlined />),
-    getItem("Files", "9", <FileOutlined />),
-    getItem(
-      "",
-      "10",
-      !collapsed ? <DoubleRightOutlined /> : <DoubleLeftOutlined />,
-      null,
-      () => setCollapsed((prev) => !prev)
-    ),
-  ];
-
-  const dispatch = useDispatch();
-  const walletAddress = useSelector((state) => state.auth.walletAddress);
-  const router = useRouter();
-  const { address } = useAccount();
-  const token = useSelector((state) => state.auth.token);
-  if (!Boolean(walletAddress) || !Boolean(address)) {
-    router.push("/login");
-  }
   return (
     <>
       <Head>
@@ -99,7 +20,7 @@ export default function Home() {
         <meta name="theme-color" content="#000000" />
       </Head>
       <Navbar />
-      {token && !isMobileDevice && (
+      {!isMobileDevice && (
         <Row
           justify="center"
           style={{

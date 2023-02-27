@@ -10,16 +10,10 @@ import {
 
 import { Web3Modal } from "@web3modal/react";
 
-import {
-  configureChains,
-  createClient,
-  useAccount,
-  useBalance,
-  WagmiConfig,
-} from "wagmi";
+import { configureChains, createClient, WagmiConfig } from "wagmi";
 
 import { bsc } from "wagmi/chains";
-import { setUserBalance } from "@/store/slices/authSlice";
+
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { ConfigProvider } from "antd";
@@ -76,6 +70,9 @@ export default function App({ Component, ...rest }) {
         <Web3Modal
           projectId="4ee9df2680b840773d696161db87d94b"
           ethereumClient={ethereumClient}
+          themeColor="orange"
+          themeMode="dark"
+          themeBackground="gradient"
         />
       </PersistGate>
     </Provider>

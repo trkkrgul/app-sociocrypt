@@ -1,4 +1,8 @@
-import { setUserBalance, setWalletAddress } from "@/store/slices/authSlice";
+import {
+  setToken,
+  setUserBalance,
+  setWalletAddress,
+} from "@/store/slices/authSlice";
 import { DownOutlined, HeartFilled, UserOutlined } from "@ant-design/icons";
 import { Web3Button } from "@web3modal/react";
 import {
@@ -23,12 +27,12 @@ const Navbar = () => {
   const isMobileDevice = useMediaQuery("(max-width: 1000px)");
   const dispatch = useDispatch();
   const walletAddress = useSelector((state) => state.auth.walletAddress);
-  const userBalance = useSelector((state) => state.auth.userBalance);
+  const token = useSelector((state) => state.auth.token);
   const { Search } = Input;
   const handleLogout = () => {
     dispatch(setWalletAddress(null));
     dispatch(setUserBalance(null));
-    router.push("/login");
+    dispatch(setToken(null));
   };
   const items = [
     {
@@ -117,14 +121,19 @@ const Navbar = () => {
 
         <Col>
           <Space direction="horizontal" style={{ margin: "0rem 1rem" }}>
-            <Dropdown menu={menuProps}>
-              <Button>
-                <Space>
-                  {walletAddress?.slice(0, 4) + ".." + walletAddress?.slice(-4)}
-                  <DownOutlined />
-                </Space>
-              </Button>
-            </Dropdown>
+            {Boolean(walletAddress) && Boolean(token) && (
+              <Dropdown menu={menuProps}>
+                <Button>
+                  <Space>
+                    {walletAddress?.slice(0, 4) +
+                      ".." +
+                      walletAddress?.slice(-4)}
+                    <DownOutlined />
+                  </Space>
+                </Button>
+              </Dropdown>
+            )}
+            {!token && <Web3Button icon="hide" />}
           </Space>
         </Col>
       </Row>

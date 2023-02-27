@@ -1,34 +1,42 @@
 import clientPromise from "@/lib/mongodb";
 
 export default async (req, res) => {
-  const { token, wallet } = req.body;
   const userWallet = req.query.userWallet;
 
   try {
-    if (!Boolean(token) || !Boolean(wallet)) {
-      res.status(400).json({ message: "Bad Request" });
+    const client = await clientPromise;
+    const db = client.db("posts");
+    const posts = await db
+      .collection("posts")
+      .aggregate([
+        {
+          $lookup: {
+            from: "likes",
+            let: { postId: "$_id" },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $eq: [{ $toObjectId: "$postId" }, "$$postId"],
+                  },
+                },
+              },
+            ],
+            as: "likes",
+          },
+        },
+        {
+          $addFields: {
+            likesCount: { $size: "$likes" },
+          },
+        },
+      ])
+      .sort({ createdAt: -1 })
+      .toArray();
+    if (Boolean(userWallet)) {
+      res.status(200).json(posts.filter((post) => post.wallet === userWallet));
     } else {
-      const client = await clientPromise;
-      const db = client.db("posts");
-      if (userWallet) {
-        const posts = await db
-          .collection("posts")
-          .find({ wallet: userWallet === "profile" ? wallet : userWallet })
-          .sort({ createdAt: -1 })
-          .limit(100)
-          .toArray();
-
-        res.json(posts);
-      } else {
-        const posts = await db
-          .collection("posts")
-          .find({})
-          .sort({ createdAt: -1 })
-          .limit(100)
-          .toArray();
-
-        res.json(posts);
-      }
+      res.status(200).json(posts);
     }
   } catch (e) {
     console.error(e);

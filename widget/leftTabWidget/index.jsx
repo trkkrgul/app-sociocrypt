@@ -49,8 +49,6 @@ const LeftTabWidget = ({ activeKey }) => {
     ),
   ];
 
-  const dispatch = useDispatch();
-
   return (
     <>
       <Sider
